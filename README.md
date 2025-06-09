@@ -1,9 +1,9 @@
-Otimização de Rotas Viking - T2 Algoritmos e Estruturas de Dados II
+# Otimização de Rotas Viking - T2 Algoritmos e Estruturas de Dados II
 
 
 Este projeto contém uma solução em Python para o problema de otimização de rotas de navegação, proposto no Trabalho 2 da disciplina de Algoritmos e Estruturas de Dados II. O objetivo é calcular o consumo mínimo de combustível para uma viagem viking que passa por uma série de portos numa ordem específica.
 
-O Problema
+# O Problema
 Vikings modernos planeiam uma expedição partindo do porto 1, visitando todos os outros portos de 2 a 9 em sequência e, finalmente, retornando ao porto 1. O desafio reside em calcular o caminho de menor custo (combustível) dadas as seguintes condições:
 
 Mapa: Um mapa em grelha onde . representa água navegável, * representa obstáculos intransponíveis e os dígitos de 1 a 9 marcam os portos.
@@ -51,10 +51,10 @@ python3 rotas_vikings.py < nome_do_ficheiro_do_mapa.txt
 
 Exemplos:
 
-# Para testar com o mapa de 100 colunas
+Para testar com o mapa de 100 colunas
 python3 rotas_vikings.py < mapa100.txt
 
-# Para testar com o mapa de 500 colunas
+Para testar com o mapa de 500 colunas
 python3 rotas_vikings.py < mapa500.txt
 
 Dependências
