@@ -155,9 +155,6 @@ def calcular_rota_viking(dados_mapa):
 
 
 # --- EXECUÇÃO PRINCIPAL ---
-# O programa agora lê da entrada padrão (stdin).
-# Para usar, execute o script da seguinte forma no terminal:
-# python3 seu_script.py < nome_do_arquivo_mapa.txt
 
 if __name__ == "__main__":
     try:
