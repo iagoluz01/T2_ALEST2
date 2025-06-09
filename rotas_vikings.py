@@ -70,36 +70,31 @@ def dijkstra_modificado(grid, inicio, fim):
 
             # Verifica se o movimento é válido (dentro do mapa e não é um obstáculo)
             if 0 <= nr < linhas and 0 <= nc < colunas and grid[nr][nc] != '*':
-                # Calcula o custo do movimento
-                # 1 unidade se mantiver a direção, 3 se mudar.
-                custo_movimento = 1 if dir_anterior == nova_dir_tupla or dir_anterior == (0, 0) else 3
+                # Calcula o custo do movimento.
+                # O primeiro movimento a partir do porto (sem direção anterior) custa 1.
+                # Manter a direção custa 1.
+                # Mudar de direção (curva) custa 3.
+                if dir_anterior == (0, 0) or dir_anterior == nova_dir_tupla:
+                    custo_movimento = 1
+                else:
+                    custo_movimento = 3
+                
                 novo_custo_total = custo + custo_movimento
 
                 # Se encontrarmos um caminho mais barato para o estado (nr, nc, nova_dir_tupla)
-                if novo_custo_total < distancias.get((nr, nc, nova_dir_tupla), INFINITO):
-                    distancias[(nr, nc, nova_dir_tupla)] = novo_custo_total
+                estado_vizinho = (nr, nc, nova_dir_tupla)
+                if novo_custo_total < distancias.get(estado_vizinho, INFINITO):
+                    distancias[estado_vizinho] = novo_custo_total
                     heapq.heappush(fila_prio, (novo_custo_total, nr, nc, nova_dir_tupla))
     
     # Se a fila esvaziar e não chegamos ao fim, o destino é inalcançável
     return INFINITO
 
-def calcular_rota_viking(nome_arquivo):
+def calcular_rota_viking(dados_mapa):
     """
-    Lê um mapa de um arquivo e calcula o combustível total para a viagem,
+    Lê os dados do mapa e calcula o combustível total para a viagem,
     passando pelos portos em ordem.
     """
-    # Tenta ler o conteúdo do arquivo especificado
-    try:
-        with open(nome_arquivo, 'r', encoding='utf-8') as f:
-            dados_mapa = f.read()
-    except FileNotFoundError:
-        print(f"Erro: O arquivo de mapa '{nome_arquivo}' não foi encontrado.")
-        return
-    except Exception as e:
-        print(f"Ocorreu um erro ao ler o arquivo: {e}")
-        return
-
-    # O resto da função continua como antes, mas usando os dados lidos do arquivo
     linhas, colunas, mapa, portos = ler_mapa(dados_mapa)
 
     if not all([linhas, colunas, mapa, portos]):
@@ -108,7 +103,7 @@ def calcular_rota_viking(nome_arquivo):
     combustivel_total = 0
     porto_atual = '1'
     
-    print(f"Iniciando a grande jornada Viking a partir do mapa '{nome_arquivo}'!\n")
+    print(f"Iniciando a grande jornada Viking!\n")
 
     # Viagens de porto em porto (1 -> 2, 2 -> 3, ..., 8 -> 9)
     for i in range(2, 10):
@@ -160,13 +155,13 @@ def calcular_rota_viking(nome_arquivo):
 
 
 # --- EXECUÇÃO PRINCIPAL ---
-# 1. Crie um arquivo de texto (ex: 'mapa.txt') no mesmo diretório deste script.
-# 2. Cole o conteúdo do mapa Viking (incluindo a linha de dimensões) dentro do arquivo.
-# 3. Coloque o nome do seu arquivo na variável abaixo e execute o script.
+# O programa agora lê da entrada padrão (stdin).
+# Para usar, execute o script da seguinte forma no terminal:
+# python3 seu_script.py < nome_do_arquivo_mapa.txt
 
-nome_do_arquivo_mapa = 'mapa100.txt'  # Substitua pelo nome do seu arquivo de mapa
-if not nome_do_arquivo_mapa.endswith('.txt'):
-    print("Erro: O nome do arquivo deve terminar com '.txt'.")
-else:
-    # Inicia o cálculo da rota Viking   
-    calcular_rota_viking(nome_do_arquivo_mapa)
+if __name__ == "__main__":
+    try:
+        dados_mapa = sys.stdin.read()
+        calcular_rota_viking(dados_mapa)
+    except Exception as e:
+        print(f"Ocorreu um erro ao ler a entrada padrão: {e}")
