@@ -77,7 +77,7 @@ def main():
         if cost is None:
             continue  # skip unreachable
         total_cost += cost
-    print(total_cost)
+    print(f"a quantidade de combustivel é : {total_cost}")
 
 if __name__ == "__main__":
     main()
